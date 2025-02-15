@@ -8,6 +8,12 @@ import env from "./config/env.js";
 import middleware from "./middleware/index.js";
 import routes from "./routes/index.js";
 
+import { fileURLToPath } from "url";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const secrets = env();
 
 const port = secrets.PORT || 5000;
@@ -22,11 +28,9 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API for storing and retrieving NFT metadata",
     },
-    servers: [
-      { url: env().NODE_ENV == "dev" ? "http://localhost:8080" : env().DEPLOYED_SERVER_BASE_URL },
-    ],
+    servers: [{ url: secrets.DEPLOYED_SERVER_BASE_URL }],
   },
-  apis: ["./src/routes/*.js"],
+  apis: [path.join(__dirname, "routes/*.js")],
 };
 
 (async () => {
