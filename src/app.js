@@ -53,7 +53,7 @@ const swaggerOptions = {
     const interval = 300000;
 
     function reloadServer() {
-      fetch(`${url.replace("/v1", "")}`)
+      fetch(`${url}`)
         .then((response) => {
           console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
         })
